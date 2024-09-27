@@ -9,7 +9,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-          // Add JitPack here
+        google()
     }
 }
 dependencyResolutionManagement {

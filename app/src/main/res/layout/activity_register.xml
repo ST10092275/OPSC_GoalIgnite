@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="730dp"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/Register"
@@ -21,7 +21,7 @@
         android:id="@+id/rName"
         android:layout_width="350dp"
         android:layout_height="55dp"
-        android:text="Name"
+        android:hint="Name"
         android:textSize="19dp"
         android:layout_marginStart="30dp"
         android:background="@drawable/border"
@@ -33,7 +33,7 @@
         android:id="@+id/rEmail"
         android:layout_width="350dp"
         android:layout_height="55dp"
-        android:text="Email"
+        android:hint="Email"
         android:textSize="19dp"
         android:layout_marginStart="30dp"
         android:background="@drawable/border"
@@ -41,23 +41,23 @@
         android:layout_marginBottom="28dp"
         android:drawableStart="@drawable/baseline_email_24"/>
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true">
-    <EditText
-        android:id="@+id/rPassword"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:text="Password"
-        android:textSize="19dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/border"
-        android:textColor="@color/grey"
-        android:layout_marginBottom="28dp"
-        android:drawableStart="@drawable/baseline_lock_outline_24"/>
+
+        <EditText
+            android:id="@+id/rPassword"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:hint="Password"
+            android:textSize="19dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:layout_marginBottom="28dp"
+            android:drawableStart="@drawable/baseline_lock_outline_24"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -65,17 +65,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true">
-    <EditText
-        android:id="@+id/rCPassword"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:text="Create Password"
-        android:textSize="19dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/border"
-        android:textColor="@color/grey"
-        android:layout_marginBottom="28dp"
-        android:drawableStart="@drawable/baseline_lock_outline_24"/>
+
+        <EditText
+            android:id="@+id/rCPassword"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:hint="Confirm Password"
+            android:textSize="19dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:layout_marginBottom="28dp"
+            android:drawableStart="@drawable/baseline_lock_outline_24"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -83,7 +84,9 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:text="Register"
-        android:layout_marginStart="105dp"/>
+        android:layout_marginStart="105dp"
+        android:textColor="@color/black"/>
+
     <TextView
         android:layout_width="200dp"
         android:layout_height="20dp"
@@ -91,16 +94,19 @@
         android:layout_marginStart="145dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"/>
+
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginStart="140dp">
+
         <ImageView
             android:id="@+id/rGoogle"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:src="@drawable/google"
             android:layout_marginEnd="30dp"/>
+
         <ImageView
             android:id="@+id/rFacebook"
             android:layout_width="50dp"
@@ -115,6 +121,7 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="1dp"/>
+
     <TextView
         android:id="@+id/rLogin"
         android:layout_width="200dp"
