@@ -13,29 +13,16 @@
         <activity
             android:name=".Register"
             android:exported="false" />
-        <activity
-            android:name=".Password"
-            android:exported="false" />
-        <activity
-            android:name=".Apple"
-            android:exported="false" />
-        <activity
-            android:name=".Google"
-            android:exported="false" />
-        <activity
-            android:name=".Facebook"
-            android:exported="false" />
+
         <activity
             android:name=".ContactDetails"
             android:exported="false" />
         <activity
             android:name=".AddEditContact"
             android:exported="true" />
+
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity1"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
