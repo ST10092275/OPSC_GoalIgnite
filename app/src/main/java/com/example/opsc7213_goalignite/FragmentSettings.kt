@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +23,10 @@ class FragmentSettings : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var themeLayout: LinearLayout
+    private lateinit var switchLayout: LinearLayout
+    private lateinit var themeArrow: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +40,27 @@ class FragmentSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        // Initialize views
+        themeLayout = view.findViewById(R.id.themeLayout)
+        switchLayout = view.findViewById(R.id.switchLayout)
+        themeArrow = view.findViewById(R.id.themearrow)
+
+        // Set click listener for the theme layout
+        themeLayout.setOnClickListener {
+            if (switchLayout.visibility == View.GONE) {
+                switchLayout.visibility = View.VISIBLE
+                themeArrow.rotation = 90f // Rotate arrow to indicate expansion
+            } else {
+                switchLayout.visibility = View.GONE
+                themeArrow.rotation = 0f // Reset arrow rotation
+            }
+        }
+
+        return view
     }
+
 
     companion object {
         /**
