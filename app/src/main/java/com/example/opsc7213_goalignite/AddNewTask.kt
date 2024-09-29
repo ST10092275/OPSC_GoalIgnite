@@ -17,7 +17,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.example.opsc7213_goalignite.model.ToDoModel
 
 
-
+//THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
+//https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
+//Penguin Coders - TO-DO-LIST APPLICATION
 class AddNewTask : BottomSheetDialogFragment() {
 
     companion object {
@@ -60,7 +62,12 @@ class AddNewTask : BottomSheetDialogFragment() {
             val task = bundle.getString("task")
             newTaskText.setText(task)
             if (task?.isNotEmpty() == true) {
-                newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.baby_blue))
+                newTaskSaveButton.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.baby_blue
+                    )
+                )
             }
         }
 
@@ -72,9 +79,15 @@ class AddNewTask : BottomSheetDialogFragment() {
                     newTaskSaveButton.setTextColor(Color.GRAY)
                 } else {
                     newTaskSaveButton.isEnabled = true
-                    newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.baby_blue))
+                    newTaskSaveButton.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.baby_blue
+                        )
+                    )
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 

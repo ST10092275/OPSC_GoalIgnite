@@ -13,7 +13,9 @@ import com.example.opsc7213_goalignite.adapter.ContactAdapter
 import com.example.opsc7213_goalignite.model.ContactModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
+//This whole code was taken from YOUTUBE
+//https://www.youtube.com/watch?v=4ZFde7We0H8&list=PLNSnaPe-iLVKpRUqg1yv5JqM_4DQN8Ofo
+// Jowel Ahmed - CONTACT APPLICATION
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

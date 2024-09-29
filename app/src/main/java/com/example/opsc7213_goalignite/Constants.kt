@@ -1,5 +1,7 @@
 package com.example.opsc7213_goalignite
-
+//THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
+//https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
+//Penguin Coders - TO-DO-LIST APPLICATION
 object Constants {
 
     // Database name and version

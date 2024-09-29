@@ -64,5 +64,12 @@
     <string name="add_marks">Add Marks</string>
     <string name="enter_marks">Enter marks</string>
     <string name="enter_marks3">Enter marks</string>
+    <string name="grades">Grades</string>
+    <string name="addgrades">addgrades</string>
+    <string name="module_name">Module Name</string>
+    <string name="module_percentage">Module percentage</string>
+    <string name="student_module_mark">Student Module/Mark</string>
+    <string name="module">Module</string>
+    <string name="mark_percentage">mark percentage</string>
 
 </resources>

@@ -2,10 +2,19 @@ package com.example.opsc7213_goalignite.model
 
 class ContactModel {
 
+    // Unique identifier for the contact
     private var id: String? = null
+
+    // Name of the contact
     private var name: String? = null
+
+    // Phone number of the contact
     private var phone: String? = null
+
+    // Email address of the contact
     private var email: String? = null
+
+    // Subject or reason for contacting
     private var subject: String? = null
 
 
