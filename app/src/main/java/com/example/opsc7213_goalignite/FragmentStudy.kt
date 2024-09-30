@@ -1,10 +1,13 @@
 package com.example.opsc7213_goalignite
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import org.w3c.dom.DocumentFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +30,7 @@ class FragmentStudy : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -34,8 +38,41 @@ class FragmentStudy : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_study, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_study, container, false)
+
+        val button = view.findViewById<Button>(R.id.button)  // Assuming button2 is the one to click
+
+        // Set an onClickListener to the button
+        button.setOnClickListener {
+            // Create an Intent to start a new activity
+            val fragment = GalleryFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragment_container, fragment)?.addToBackStack(null)?.commit()
+        }
+        val buttonFlashcard = view.findViewById<Button>(R.id.button2)  // Assuming button2 is the one to click
+
+        // Set an onClickListener to the button
+        buttonFlashcard.setOnClickListener {
+            // Create an Intent to start a new activity
+            val fragment = FlashcardFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragment_container, fragment)?.addToBackStack(null)?.commit()
+        }
+        // Find the button by its ID
+        val buttonDocument = view.findViewById<Button>(R.id.button3)
+
+        // Set an onClickListener to the button
+        buttonDocument.setOnClickListener {
+            val fragment = DocumentFragment()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragment_container, fragment)?.addToBackStack(null)?.commit()
+        }
+
+        return view
     }
+
+
 
     companion object {
         /**
@@ -56,4 +93,5 @@ class FragmentStudy : Fragment() {
                 }
             }
     }
+
 }

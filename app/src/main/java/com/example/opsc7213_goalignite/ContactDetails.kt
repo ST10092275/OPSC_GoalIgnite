@@ -9,6 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+//This whole code was taken from YOUTUBE
+//https://www.youtube.com/watch?v=4ZFde7We0H8&list=PLNSnaPe-iLVKpRUqg1yv5JqM_4DQN8Ofo
+// Jowel Ahmed - CONTACT APPLICATION
+
+
+
 class ContactDetails : AppCompatActivity() {
     private lateinit var nameTextView: TextView
     private lateinit var phoneTextView: TextView

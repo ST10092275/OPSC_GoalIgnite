@@ -14,6 +14,13 @@ import com.example.opsc7213_goalignite.model.ToDoModel
 import com.example.opsc7213_goalignite.utilis.DatabaseHandler
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+//THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
+//https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
+//Penguin Coders - TO-DO-LIST APPLICATION
+
+
+
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -77,7 +84,8 @@ class FragmentList : Fragment(), DialogCloseListener {
         taskList = db.getAllTasks().toMutableList()
         taskList.reverse()
         tasksAdapter.setTasks(taskList)
-        tasksAdapter.notifyDataSetChanged()
+        tasksAdapter.notifyItemInserted(0)
+
     }
 
 

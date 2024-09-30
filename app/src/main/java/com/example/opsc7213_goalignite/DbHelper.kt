@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.annotation.Nullable
 import com.example.opsc7213_goalignite.model.ContactModel
+//THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
+//https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
+//Penguin Coders - TO-DO-LIST APPLICATION
+
 
 // Class for database helper
 class DbHelper(@Nullable context: Context?) : SQLiteOpenHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION) {

@@ -11,9 +11,13 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:id="@+id/profilelayout"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/person"
@@ -21,21 +25,75 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/baseline_person"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="22dp"/>
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Profile Management" />
+            android:text="Profile Management"
+            android:layout_marginStart="15dp"/>
         <ImageView
             android:id="@+id/profilearrow"
             android:layout_width="11dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/arrow" />
+            app:srcCompat="@drawable/arrow"
+            android:layout_marginStart="45dp"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/profileFieldsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="8dp">
+
+        <!-- Name -->
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createpasswordInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+        <!-- Password -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:layout_marginBottom="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- Save Profile Button -->
+        <Button
+            android:id="@+id/saveProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Profile" />
     </LinearLayout>
 
     <LinearLayout

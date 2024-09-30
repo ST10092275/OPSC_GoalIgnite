@@ -1,21 +1,42 @@
 package com.example.opsc7213_goalignite
 
 // MainActivity.kt
+<<<<<<< HEAD
+import android.content.Intent
+=======
+import android.content.Context
+>>>>>>> 14d3623d72f66ff253570f353d1bcdac1879f987
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
+import com.facebook.GraphRequest
+import com.facebook.GraphResponse
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply theme before setting content view
+        val sharedPreferences = getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+        val nightMode = sharedPreferences.getBoolean("nightMode", false)
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -65,7 +86,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.todo -> loadFragment(FragmentList())
             R.id.grades -> loadFragment(FragmentGrades())
             R.id.contact -> loadFragment(FragmentContact())
-
+            R.id.logout -> {
+                // Clear the user session if applicable, then navigate to Login
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish() // Optional: Call finish() if you want to close the current activity
+            }
         }
         // Close the drawer after selection
         drawerLayout.closeDrawer(GravityCompat.START)

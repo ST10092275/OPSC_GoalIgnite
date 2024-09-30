@@ -11,24 +11,33 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.opsc7213_goalignite.adapter.ToDoAdapter
 
+//THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
+//https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
+//Penguin Coders - TO-DO-LIST APPLICATION
 
+
+
+
+// This class implements swipe functionality for items in a RecyclerView
 class RecyclerItemTouchHelper(
-    private val context: Context,
-    private val adapter: ToDoAdapter
+    private val context: Context,// Context to show dialogs and get resources
+    private val adapter: ToDoAdapter// Adapter to interact with the RecyclerView items
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
-    private val backgroundCornerOffset = 20
-    private lateinit var icon: Drawable
-    private lateinit var background: ColorDrawable
+    private val backgroundCornerOffset = 20 // Offset for the background corners
+    private lateinit var icon: Drawable // Icon to be displayed during the swipe
+    private lateinit var background: ColorDrawable // Background color for the swipe action
 
+    // This method is called when an item is moved
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return false
+        return false // No movement functionality is needed
     }
 
+    // This method is called when an item is swiped
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
 
@@ -51,7 +60,7 @@ class RecyclerItemTouchHelper(
             adapter.editItem(position)
         }
     }
-
+    // This method is called to draw the item view while it is being swiped
     override fun onChildDraw(
         c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
         dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
