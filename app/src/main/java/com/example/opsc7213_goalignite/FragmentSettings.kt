@@ -13,13 +13,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,6 +40,9 @@ class FragmentSettings : Fragment() {
     private lateinit var themeLayout: LinearLayout
     private lateinit var switchLayout: LinearLayout
     private lateinit var themeArrow: ImageView
+    private lateinit var switchMode: SwitchCompat
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private lateinit var profileArrow : ImageView
     private lateinit var profilelayout: LinearLayout
@@ -48,10 +51,6 @@ class FragmentSettings : Fragment() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var saveProfileButton: Button
-
-    private lateinit var switchMode: SwitchCompat
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
 
 
 
@@ -79,6 +78,16 @@ class FragmentSettings : Fragment() {
         themeLayout = view.findViewById(R.id.themeLayout)
         switchLayout = view.findViewById(R.id.switchLayout)
         themeArrow = view.findViewById(R.id.themearrow)
+        switchMode = view.findViewById(R.id.switchMode)
+
+        // Initialize SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+
+        // Load saved theme preference
+        val nightMode = sharedPreferences.getBoolean("nightMode", false)
+        switchMode.isChecked = nightMode
+        updateTheme(nightMode)
 
         profileArrow = view.findViewById(R.id.profilearrow)
         profilelayout = view.findViewById(R.id.profilelayout)
@@ -105,10 +114,7 @@ class FragmentSettings : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
-        // Load saved theme preference
-        val nightMode = sharedPreferences.getBoolean("nightMode", false)
-        switchMode.isChecked = nightMode
-        updateTheme(nightMode)
+
 
 
         // Set click listener for the theme layout
@@ -138,6 +144,7 @@ class FragmentSettings : Fragment() {
             editor.apply()
             updateTheme(isChecked)
         }
+
 
         return view
 
@@ -239,6 +246,8 @@ class FragmentSettings : Fragment() {
         }
     }
 
+
+    // Update theme based on the user preference
 
 
     companion object {

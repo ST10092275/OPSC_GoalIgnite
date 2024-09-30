@@ -26,6 +26,7 @@
             android:name=".MainActivity"
             android:exported="false" />
 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -35,6 +36,7 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="7fcd1deedce60a6c712a9f0955035971" />
+
 
         <activity
             android:name=".ContactDetails"

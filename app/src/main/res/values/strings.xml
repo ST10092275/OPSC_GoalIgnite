@@ -64,9 +64,8 @@
     <string name="add_marks">Add Marks</string>
     <string name="enter_marks">Enter marks</string>
     <string name="enter_marks3">Enter marks</string>
-<<<<<<< HEAD
     <string name="google_web_client_id">642886062724-r0vdeq4r2fcai1jo4jgvd6u4e66tc5a3.apps.googleusercontent.com</string>
-=======
+
     <string name="grades">Grades</string>
     <string name="addgrades">addgrades</string>
     <string name="module_name">Module Name</string>
@@ -75,5 +74,5 @@
     <string name="module">Module</string>
     <string name="mark_percentage">mark percentage</string>
 
->>>>>>> 14d3623d72f66ff253570f353d1bcdac1879f987
+
 </resources>

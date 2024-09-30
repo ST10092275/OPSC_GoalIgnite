@@ -1,11 +1,12 @@
 package com.example.opsc7213_goalignite
 
 // MainActivity.kt
-<<<<<<< HEAD
-import android.content.Intent
-=======
+
 import android.content.Context
->>>>>>> 14d3623d72f66ff253570f353d1bcdac1879f987
+import android.content.Intent
+
+
+
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
