@@ -23,11 +23,22 @@ import com.google.gson.reflect.TypeToken
  * Use the [DocumentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+
 class DocumentFragment : Fragment() {
+//SharedPreferences code adapted from Android Developers
+//https://developer.android.com/training/data-storage/shared-preferences
+//Android Developers-Save simple data with SharedPreferences (2024)
+//File picker code adapted from Bing Videos
+//https://www.bing.com/videos/riverview/relatedvideo?q=file+picker+kotlin&mid=87279721F2A47FAF9CB487279721F2A47FAF9CB4&FORM=VIRE
+//IT Wala- ANDROID - FILE PICKER || TUTORIAL IN KOTLIN (2023)
+    // AlertDialog code adpated from Android Developers
+    //https://developer.android.com/reference/android/app/AlertDialog#:~:text=AlertDialog%20|%20Android%20Developers.%20Essentials.%20Gemini%20in
+    //Android Developers-AlertDialog(2024)
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DocumentAdapter
-    private var documentList = mutableListOf<Document>()
+    private var documentList = mutableListOf<Document>() //stores documents in a list
 
     private val sharedPreferences by lazy {
         requireActivity().getSharedPreferences("DocumentPrefs", Context.MODE_PRIVATE)

@@ -22,32 +22,40 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import android.Manifest
 import android.widget.ImageView
+//SharedPreferences code adapted from Android Developers
+//https://developer.android.com/training/data-storage/shared-preferences
+//Android Developers-Save simple data with SharedPreferences (2024)
 
+//File picker code adapted from Youtube Videos
+//https://www.bing.com/videos/riverview/relatedvideo?q=file+picker+kotlin&mid=87279721F2A47FAF9CB487279721F2A47FAF9CB4&FORM=VIRE
+//IT Wala- ANDROID - FILE PICKER || TUTORIAL IN KOTLIN (2023)
 class DocumentActivity : AppCompatActivity() {
 
-    private val PICK_FILE_REQUEST = 1
-    private lateinit var fileList: MutableList<Uri>
-    private lateinit var recyclerViewAdapter: DocumentAdapter
+    private val PICK_FILE_REQUEST = 1 //Request code for file picker intent
+    private lateinit var fileList: MutableList<Uri> //List of file URIs to store selected documents
+    private lateinit var recyclerViewAdapter: DocumentAdapter //Adapter to display in ReceyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_document)
 
+        //Retrives saved file URI from SharedPreferences
         fileList = getSavedFiles()
 
 
+        // Initialize RecyclerView and set layout manager and adapter
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewAdapter
 
-        findViewById<ImageView>(R.id.add).setOnClickListener {
+        findViewById<ImageView>(R.id.add).setOnClickListener {//add files
             openFilePicker()
         }
     }
 
-    private fun openFilePicker() {
+    private fun openFilePicker() { //opens file picker
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.addCategory(Intent.CATEGORY_OPENABLE) //makes sure that all files are visible
         intent.type = "*/*"
         startActivityForResult(intent, PICK_FILE_REQUEST)
     }
@@ -56,9 +64,9 @@ class DocumentActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK) {
             data?.data?.let { uri ->
-                fileList.add(uri)
-                saveFiles(fileList)
-                recyclerViewAdapter.notifyDataSetChanged()
+                fileList.add(uri) //Adds selected file URI to lidt
+                saveFiles(fileList) //Saves updated file list
+                recyclerViewAdapter.notifyDataSetChanged() //Refreshes recycler view
             }
         }
     }

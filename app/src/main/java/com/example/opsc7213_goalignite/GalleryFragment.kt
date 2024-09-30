@@ -22,6 +22,13 @@ import com.google.gson.reflect.TypeToken
  * Use the [GalleryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+//SharedPreferences code adapted from Android Developers
+//https://developer.android.com/training/data-storage/shared-preferences
+//Android Developers-Save simple data with SharedPreferences (2024)
+
+//File picker code adapted from Youtube Videos
+//https://www.bing.com/videos/riverview/relatedvideo?q=file+picker+kotlin&mid=87279721F2A47FAF9CB487279721F2A47FAF9CB4&FORM=VIRE
+//IT Wala- ANDROID - FILE PICKER || TUTORIAL IN KOTLIN (2023)
 class GalleryFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView

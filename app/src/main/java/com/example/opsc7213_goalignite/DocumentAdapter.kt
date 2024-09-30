@@ -11,13 +11,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
+//getCount() adapted from Android Developers
+//https://developer.android.com/reference/kotlin/android/widget/Adapter#:~:text=Adapter%20|%20Android%20Developers.%20Essentials.%20Gemini%20in%20Android
+//Android Developers
+//Adapter to display list of documents
 class DocumentAdapter(private val documentList: List<Document>, private val onItemClick: (Document) -> Unit) : RecyclerView.Adapter<DocumentAdapter.DocumentViewHolder>() {
 
     inner class DocumentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val fileNameTextView: TextView = itemView.findViewById(R.id.file_name)
+        val fileNameTextView: TextView = itemView.findViewById(R.id.file_name) //displays file name in the recycler view
 
+
+        //Binds the Document data to the ViewHolder's views.
         fun bind(document: Document) {
-            fileNameTextView.text = document.fileName
+            fileNameTextView.text = document.fileName // Display file name in TextView
             itemView.setOnClickListener {
                 onItemClick(document)
             }
@@ -25,7 +31,7 @@ class DocumentAdapter(private val documentList: List<Document>, private val onIt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_document, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_document, parent, false)// Inflate the layout for the item (item_document.xml) and return a ViewHolder
         return DocumentViewHolder(view)
     }
 
@@ -33,5 +39,6 @@ class DocumentAdapter(private val documentList: List<Document>, private val onIt
         holder.bind(documentList[position])
     }
 
+    //returns documents by gettimng how many items are in data set
     override fun getItemCount() = documentList.size
 }

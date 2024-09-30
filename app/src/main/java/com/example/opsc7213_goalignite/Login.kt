@@ -28,11 +28,14 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+//Login and Register code taken from GeeksforGeeks
+//https://www.geeksforgeeks.org/login-and-registration-in-android-using-firebase-in-kotlin/
+//ayus-Login and Registration in Android using Firebase in Kotlin(2022)
 class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-    private lateinit var lEmail: EditText
+    private lateinit var lEmail: EditText //variables initiated
     private lateinit var lPassword: EditText
     private lateinit var btnLogin: Button
 

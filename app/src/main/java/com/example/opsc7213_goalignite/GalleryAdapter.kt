@@ -7,6 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+//getCount() adapted from Android Developers
+//https://developer.android.com/reference/kotlin/android/widget/Adapter#:~:text=Adapter%20|%20Android%20Developers.%20Essentials.%20Gemini%20in%20Android
+//Android Developers
+//Adapter to display list of documents
 
 class GalleryAdapter(private val mediaList: List<Gallery>, private val onItemClick: (Gallery) -> Unit) : RecyclerView.Adapter<GalleryAdapter.MediaViewHolder>() {
 

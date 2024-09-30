@@ -1,6 +1,5 @@
 package com.example.opsc7213_goalignite
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.opsc7213_goalignite.adapter.FlashcardAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,10 +28,15 @@ import java.util.UUID
  * create an instance of this fragment.
  */
 class FlashcardFragment : Fragment() {
-
+    //API calls code adapted from Medium
+//https://medium.com/@imkuldeepsinghrai/api-calls-with-retrofit-in-android-kotlin-a-comprehensive-guide-e049e19deba9#:~:text=In%20this%20article,%20we%20will%20explore%20the%20ins%20and%20outs
+//Kuldeep Singh Rai-API Calls with Retrofit in Android Kotlin: A Comprehensive Guide(2023)
+    //Coroutines adapted from Android Developers
+    //https://developer.android.com/kotlin/coroutines#:~:text=A%20coroutine%20is%20a%20concurrency%20design%20pattern%20that%20you%20can#:~:text=A%20coroutine%20is%20a%20concurrency%20design%20pattern%20that%20you%20can
+    //Android Developers-Kotlin coroutines on Android
     private lateinit var api: FlashcardApiService
     private lateinit var createButton: Button
-    private lateinit var questionInput: EditText
+    private lateinit var questionInput: EditText //variable declaration
     private lateinit var answerInput: EditText
     private lateinit var moduleInput: EditText
     private lateinit var flashcardContainer: LinearLayout
@@ -62,22 +62,24 @@ class FlashcardFragment : Fragment() {
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY // Log full details (headers and bodies)
         }
-
+        // Builds OkHttpClient with logging interceptor
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
 
+        // Builds Retrofit instance
         val retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:3004/") // Emulator loopback URL for localhost
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+        // Creates an API service
         api = retrofit.create(FlashcardApiService::class.java)
 
         createButton.setOnClickListener {
             val module = moduleInput.text.toString()
-            val question = questionInput.text.toString()
+            val question = questionInput.text.toString() // Get input values
             val answer = answerInput.text.toString()
 
             answerInput.text.clear()
@@ -85,9 +87,10 @@ class FlashcardFragment : Fragment() {
             answerInput.text.clear()
 
             if (module.isNotEmpty() && question.isNotEmpty() && answer.isNotEmpty()) {
-                val flashcard = Flashcard(id = UUID.randomUUID().toString(), module, question, answer)
+                val flashcard = Flashcard(id = UUID.randomUUID().toString(), module, question, answer) // Creates a new flashcard object
                 saveFlashcard(flashcard)
             } else {
+                // Log warning if fields are empty
                 Log.w("FlashcardFragment", "Please fill all the fields.")
             }
         }
@@ -97,6 +100,8 @@ class FlashcardFragment : Fragment() {
     }
 
     private fun saveFlashcard(flashcard: Flashcard) {
+
+        //performs a network operation using courotine
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = api.createFlashcard(flashcard)

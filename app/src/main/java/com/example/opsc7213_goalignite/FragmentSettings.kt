@@ -32,6 +32,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentSettings.newInstance] factory method to
  * create an instance of this fragment.
  */
+//Code adapted from Medium
+//https://medium.com/@myofficework000/managing-user-authentication-and-data-with-firestore-in-android-using-jetpack-compose-6fb4da2e01e5#:~:text=In%20this%20comprehensive%20tutorial,%20we%20will%20guide%20you%20through
+//Abhishek Pathak Managing User Authentication and Data with Firestore in Android using Jetpack Compose(2023)
 class FragmentSettings : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -39,13 +42,13 @@ class FragmentSettings : Fragment() {
 
     private lateinit var themeLayout: LinearLayout
     private lateinit var switchLayout: LinearLayout
-    private lateinit var themeArrow: ImageView
+    private lateinit var themeArrow: ImageView //Initializes variables
     private lateinit var switchMode: SwitchCompat
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
     private lateinit var profileArrow : ImageView
-    private lateinit var profilelayout: LinearLayout
+    private lateinit var profilelayout: LinearLayout   //Initializes variables
     private lateinit var profileFieldsLayout: LinearLayout
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
@@ -186,7 +189,7 @@ class FragmentSettings : Fragment() {
         }
     }
     private fun saveProfileData() {
-        val updatedName = nameEditText.text.toString()
+        val updatedName = nameEditText.text.toString() //takes in new profile data
         val updatedEmail = emailEditText.text.toString()
         val updatedPassword = passwordEditText.text.toString()
 

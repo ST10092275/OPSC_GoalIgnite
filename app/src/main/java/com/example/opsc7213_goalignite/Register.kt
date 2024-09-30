@@ -29,10 +29,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
+//Login and Register code taken from GeeksforGeeks
+//https://www.geeksforgeeks.org/login-and-registration-in-android-using-firebase-in-kotlin/
+//ayus-Login and Registration in Android using Firebase in Kotlin(2022)
 class Register : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
-    private lateinit var callbackManager: CallbackManager
+    private lateinit var auth: FirebaseAuth //firebase authentication instance
+    private lateinit var db: FirebaseFirestore //firebase database instance
+    private lateinit var callbackManager: CallbackManager // Callback manager for Facebook login
     private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,13 +66,13 @@ class Register : AppCompatActivity() {
 
         }
         rFacebook.setOnClickListener {
-            signInWithFacebook()
+            signInWithFacebook()// Initiate Facebook Sign-In
         }
-
+        // Redirect to Login activity
         rLogin.setOnClickListener{
             startActivity(Intent(this, Login::class.java))
         }
-
+        // Register button click listener
         btnRegister.setOnClickListener {
             val name = rName.text.toString().trim()
             val email = rEmail.text.toString().trim()
@@ -78,7 +81,7 @@ class Register : AppCompatActivity() {
 
             rName.text.clear()
             rEmail.text.clear()
-            rPassword.text.clear()
+            rPassword.text.clear() // Clear the input fields
             rCPassword.text.clear()
 
             // Validation checks
@@ -164,12 +167,12 @@ class Register : AppCompatActivity() {
             }
     }
 
-
+    // Method to initiate Facebook Sign-In
     private fun signInWithFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
+        LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile")) // Request permissions
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
-                handleFacebookAccessToken(result?.accessToken)
+                handleFacebookAccessToken(result?.accessToken) // Handle access token
                 val intent = Intent(
                     this@Register,
                     MainActivity::class.java
@@ -188,16 +191,17 @@ class Register : AppCompatActivity() {
             }
         })
     }
-
+    // Handle Facebook access token and authenticate with Firebase
     private fun handleFacebookAccessToken(token: AccessToken?) {
-        val credential = FacebookAuthProvider.getCredential(token?.token!!)
-        auth.signInWithCredential(credential)
+        val credential = FacebookAuthProvider.getCredential(token?.token!!)// Gets credential
+        auth.signInWithCredential(credential) // Sign in with credential
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = hashMapOf(
                         "name" to auth.currentUser?.displayName,
                         "email" to auth.currentUser?.email
                     )
+                    //save facebook user info on firestore
                     db.collection("users").document(auth.currentUser?.uid!!)
                         .set(user)
                         .addOnSuccessListener {
@@ -219,6 +223,7 @@ class Register : AppCompatActivity() {
             }
     }
 
+    // Handle the result of sign-in activities
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
