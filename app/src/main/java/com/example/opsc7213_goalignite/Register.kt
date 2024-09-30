@@ -32,6 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 //Login and Register code taken from GeeksforGeeks
 //https://www.geeksforgeeks.org/login-and-registration-in-android-using-firebase-in-kotlin/
 //ayus-Login and Registration in Android using Firebase in Kotlin(2022)
+//Code adapted from Firebase
+//https://firebase.google.com/docs/auth/android/facebook-login#:~:text=You%20can%20let%20your%20users%20authenticate%20with%20Firebase%20using
+//Fitrebase-Authenticate Using Facebook Login on Android
 class Register : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth //firebase authentication instance
     private lateinit var db: FirebaseFirestore //firebase database instance
@@ -57,14 +60,10 @@ class Register : AppCompatActivity() {
         val rPassword = findViewById<EditText>(R.id.rPassword)
         val rCPassword = findViewById<EditText>(R.id.rCPassword)
         val rLogin = findViewById<TextView>(R.id.rLogin)
-        val rGoogle = findViewById<ImageView>(R.id.rGoogle)
+
         val rFacebook = findViewById<ImageView>(R.id.rFacebook)
 
-        rGoogle.setOnClickListener{
-            signInWithGoogle()
 
-
-        }
         rFacebook.setOnClickListener {
             signInWithFacebook()// Initiate Facebook Sign-In
         }
@@ -99,72 +98,6 @@ class Register : AppCompatActivity() {
             registerUser(name, email, password)
 
         }
-    }
-
-    private fun signInWithGoogle() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.google_web_client_id)) // Replace with your web client ID
-            .requestEmail()
-            .build()
-
-        val googleSignInClient = GoogleSignIn.getClient(this, gso)
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)!!
-            firebaseAuthWithGoogle(account)
-        } catch (e: ApiException) {
-            Toast.makeText(this, "Google Sign-In failed: ${e.message}", Toast.LENGTH_SHORT).show()
-            updateUI(null)
-        }
-    }
-
-
-    private fun updateUI(account: GoogleSignInAccount?) {
-        if (account != null) {
-            // User signed in successfully, redirect to MainActivity
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish() // Optional: finish this activity
-        } else {
-            // Handle sign-in failure
-            Toast.makeText(this, "Sign-in failed", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // This is where the success should happen
-                    Log.d("GoogleSignIn", "signInWithCredential:success")
-                    val user = hashMapOf(
-                        "name" to account.displayName,
-                        "email" to account.email
-                    )
-                    db.collection("users").document(auth.currentUser?.uid!!)
-                        .set(user)
-                        .addOnSuccessListener {
-                            Log.d("GoogleSignIn", "User saved to Firestore")
-                            Toast.makeText(this, "Google Sign-In successful", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
-                            finish() // Ensure the activity finishes so it doesn't return here.
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(this, "Error saving user info: ${e.message}", Toast.LENGTH_SHORT).show()
-                        }
-                } else {
-                    Log.w("GoogleSignIn", "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Google Sign-In failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
     }
 
     // Method to initiate Facebook Sign-In
@@ -224,25 +157,6 @@ class Register : AppCompatActivity() {
     }
 
     // Handle the result of sign-in activities
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-
-        // Google sign-in result
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
-            } catch (e: ApiException) {
-                Log.w("GoogleSignIn", "Google sign-in failed: ${e.message}")
-                Toast.makeText(this, "Google sign-in failed: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
     private fun registerUser(name: String, email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
