@@ -5,6 +5,3 @@ data class ToDoModel(
     var status: Int = 0,  // Completion status (0: incomplete, 1: complete)
     var task: String = ""// Description of the To-Do item
 )
-
-
-

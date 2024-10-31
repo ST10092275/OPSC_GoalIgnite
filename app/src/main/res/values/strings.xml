@@ -71,5 +71,14 @@
     <string name="student_module_mark">Student Module/Mark</string>
     <string name="module">Module</string>
     <string name="mark_percentage">mark percentage</string>
+    <string name="theme">Theme</string>
+    <string name="support">Support</string>
+    <string name="faq">FAQ</string>
+    <string name="support_form">Support Form</string>
+    <string name="language">Language</string>
+    <string name="change_language">Change language</string>
+    <string name="profile_management">Profile Management</string>
+    <string name="timer">Timer</string>
+
 
 </resources>

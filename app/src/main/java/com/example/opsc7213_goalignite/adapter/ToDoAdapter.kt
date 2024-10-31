@@ -2,6 +2,7 @@ package com.example.opsc7213_goalignite.adapter
 
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,13 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.example.opsc7213_goalignite.R
 import com.example.opsc7213_goalignite.utilis.DatabaseHandler
 import com.example.opsc7213_goalignite.model.ToDoModel
 import com.example.opsc7213_goalignite.AddNewTask
+
 
 class ToDoAdapter(
 
@@ -80,4 +84,6 @@ class ToDoAdapter(
 
         private fun toBoolean(n: Int): Boolean = n != 0
     }
+
+
 }

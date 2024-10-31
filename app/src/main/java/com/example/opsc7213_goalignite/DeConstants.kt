@@ -15,12 +15,17 @@ object DeConstants {
     const val C_ID = "ID" // Unique identifier for each grade entry
     const val C_MODULE = "MODULE"// Name of the module associated with the grade
     const val C_MARK = "MARK"// The mark or grade received
+    const val COLUMN_IS_SYNCED = "isSynced"
+
+
+
     // SQL statement to create the Grades table
     const val CREATE_TABLE = """
         CREATE TABLE ${DeConstants.TABLE_NAME} (
             ${DeConstants.C_ID} INTEGER PRIMARY KEY AUTOINCREMENT, 
             $C_MODULE TEXT,
-            $C_MARK TEXT
+            $C_MARK TEXT,
+            $COLUMN_IS_SYNCED INTEGER DEFAULT 0
             
           )
           """

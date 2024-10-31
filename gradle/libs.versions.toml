@@ -15,6 +15,11 @@ activity = "1.9.2"
 constraintlayout = "2.1.4"
 circleimageview = "3.1.0"
 sdp = "1.0.6"
+workRuntimeKtx = "2.9.1"
+picasso = "2.5.2"
+recyclerview = "1.2.1"
+glide = "4.12.0"
+media = "1.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,9 +31,16 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
-sdp = { group = "com.intuit.sdp", name = "sdp-android", version.ref = "sdp" }  # Add this line for SDP
+sdp = { group = "com.intuit.sdp", name = "sdp-android", version.ref = "sdp" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }  # Add this line for SDP
+
+# Add new libraries
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+media = { group = "androidx.media", name = "media", version.ref = "media" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }# replace with the latest version
 

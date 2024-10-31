@@ -1,6 +1,7 @@
 package com.example.opsc7213_goalignite
 
 // MainActivity.kt
+
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
 
     private lateinit var drawerLayout: DrawerLayout
 
