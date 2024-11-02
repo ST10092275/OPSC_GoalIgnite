@@ -3,17 +3,32 @@ package com.example.opsc7213_goalignite
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+<<<<<<< HEAD
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import java.util.Locale
+=======
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+
+>>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +41,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentSettings.newInstance] factory method to
  * create an instance of this fragment.
  */
+//Code adapted from Medium
+//https://medium.com/@myofficework000/managing-user-authentication-and-data-with-firestore-in-android-using-jetpack-compose-6fb4da2e01e5#:~:text=In%20this%20comprehensive%20tutorial,%20we%20will%20guide%20you%20through
+//Abhishek Pathak Managing User Authentication and Data with Firestore in Android using Jetpack Compose(2023)
 class FragmentSettings : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -34,7 +52,7 @@ class FragmentSettings : Fragment() {
     private lateinit var themeLayouts: LinearLayout
     private lateinit var themeLayout: LinearLayout
     private lateinit var switchLayout: LinearLayout
-    private lateinit var themeArrow: ImageView
+    private lateinit var themeArrow: ImageView //Initializes variables
     private lateinit var switchMode: SwitchCompat
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -50,6 +68,18 @@ class FragmentSettings : Fragment() {
 
 
 
+    private lateinit var profileArrow : ImageView
+    private lateinit var profilelayout: LinearLayout   //Initializes variables
+    private lateinit var profileFieldsLayout: LinearLayout
+    private lateinit var nameEditText: EditText
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var saveProfileButton: Button
+
+
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -64,6 +94,9 @@ class FragmentSettings : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // Initialize views
         themeLayout = view.findViewById(R.id.themeLayout)
@@ -88,6 +121,7 @@ class FragmentSettings : Fragment() {
         switchMode.isChecked = nightMode
         updateTheme(nightMode)
 
+<<<<<<< HEAD
         themeLayouts.setOnClickListener {
             // Replace the current fragment with FAQFragment
             replaceWithFAQFragment()
@@ -97,6 +131,33 @@ class FragmentSettings : Fragment() {
             //replace with current fragment with supportForm
             replaceWithSupportForm()
         }
+=======
+        profileArrow = view.findViewById(R.id.profilearrow)
+        profilelayout = view.findViewById(R.id.profilelayout)
+        profileFieldsLayout = view.findViewById(R.id.profileFieldsLayout)
+        nameEditText = view.findViewById(R.id.nameEditText)
+        emailEditText = view.findViewById(R.id.emailEditText)
+        passwordEditText = view.findViewById(R.id.passwordEditText)
+        saveProfileButton = view.findViewById(R.id.saveProfileButton)
+
+        saveProfileButton.setOnClickListener {
+            saveProfileData()
+            try {
+                sendMessage()
+            } catch (e: Exception) {
+                // Handle the error gracefully, logging it and notifying the user
+                handleError(e)
+            }
+        }
+        loadUserData()
+
+        switchMode = view.findViewById(R.id.switchMode)
+
+        // Initialize SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+
+>>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
 
 
 
@@ -110,6 +171,16 @@ class FragmentSettings : Fragment() {
                 themeArrow.rotation = 0f // Reset arrow rotation
             }
         }
+        profilelayout.setOnClickListener {
+            if (profileFieldsLayout.visibility == View.GONE) {
+                profileFieldsLayout.visibility = View.VISIBLE
+                profileArrow.rotation = 90f // Rotate arrow to indicate expansion
+            } else {
+                profileFieldsLayout.visibility = View.GONE
+                profileArrow.rotation = 0f // Reset arrow rotation
+            }
+
+        }
 
         // Set listener for the switch to toggle theme
         switchMode.setOnCheckedChangeListener { _, isChecked ->
@@ -118,6 +189,7 @@ class FragmentSettings : Fragment() {
             updateTheme(isChecked)
         }
 
+<<<<<<< HEAD
         supportLayout.setOnClickListener {
             toggleDropdown()
         }
@@ -131,7 +203,98 @@ class FragmentSettings : Fragment() {
             // Code to show language options
             showChangeLanguageDialog()
         }
+=======
+
+>>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
         return view
+
+    }
+    private fun sendMessage() {
+        try {
+            // Attempt to display a Toast message
+            Toast.makeText(context, "Your profile update request has been sent!", Toast.LENGTH_SHORT).show()
+
+        } catch (e: Exception) {
+            // Handle any errors when trying to display the message
+            throw Exception("Failed to send message: ${e.localizedMessage}")
+        }
+    }
+
+
+    private fun handleError(e: Exception) {
+        // Log the error for debugging purposes
+        Log.e("ProfileManagement", "Error: ${e.localizedMessage}")
+
+        // Show an error message to the user
+        Toast.makeText(context, "Error sending message: ${e.localizedMessage}", Toast.LENGTH_LONG)
+            .show()
+    }
+    private fun loadUserData() {
+        val user = auth.currentUser
+        if (user != null) {
+            // Load the email from FirebaseAuth
+            emailEditText.setText(user.email)
+
+            // Load the name from FirebaseAuth or Firestore
+            firestore.collection("users").document(user.uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val name = document.getString("name")
+                        nameEditText.setText(name)
+                    }
+                }
+        }
+    }
+    private fun saveProfileData() {
+        val updatedName = nameEditText.text.toString() //takes in new profile data
+        val updatedEmail = emailEditText.text.toString()
+        val updatedPassword = passwordEditText.text.toString()
+
+        val user = auth.currentUser
+
+        user?.let {
+            // Update email
+            if (updatedEmail.isNotEmpty() && updatedEmail != user.email) {
+                user.updateEmail(updatedEmail).addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Toast.makeText(context, "Failed to update email", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            // Update password
+            if (updatedPassword.isNotEmpty()) {
+                user.updatePassword(updatedPassword).addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Toast.makeText(context, "Failed to update password", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            // Update name in Firestore
+            val userProfileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(updatedName)
+                .build()
+
+            user.updateProfile(userProfileUpdates).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Save name to Firestore
+                    val userData = mapOf(
+                        "name" to updatedName,
+                        "email" to updatedEmail
+                    )
+                    firestore.collection("users").document(user.uid).set(userData)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    Toast.makeText(context, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun replaceWithFAQFragment() {
@@ -230,6 +393,9 @@ class FragmentSettings : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
+
+
+    // Update theme based on the user preference
 
 
     companion object {

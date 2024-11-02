@@ -30,17 +30,23 @@
         android:layout_marginBottom="28dp"
         android:drawableStart="@drawable/baseline_person"/>
 
-    <EditText
-        android:id="@+id/rEmail"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:hint="Email"
-        android:textSize="19dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/border"
-        android:textColor="@color/grey"
-        android:layout_marginBottom="28dp"
-        android:drawableStart="@drawable/baseline_email_24"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/rEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:hint="Email"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="28dp"
+            android:drawableStart="@drawable/baseline_email"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"

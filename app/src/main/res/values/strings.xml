@@ -64,6 +64,8 @@
     <string name="add_marks">Add Marks</string>
     <string name="enter_marks">Enter marks</string>
     <string name="enter_marks3">Enter marks</string>
+    <string name="google_web_client_id">642886062724-r0vdeq4r2fcai1jo4jgvd6u4e66tc5a3.apps.googleusercontent.com</string>
+
     <string name="grades">Grades</string>
     <string name="addgrades">addgrades</string>
     <string name="module_name">Module Name</string>
@@ -79,6 +81,7 @@
     <string name="change_language">Change language</string>
     <string name="profile_management">Profile Management</string>
     <string name="timer">Timer</string>
+
 
 
 </resources>
