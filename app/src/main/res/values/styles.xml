@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog"/>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
     </style>
 </resources>

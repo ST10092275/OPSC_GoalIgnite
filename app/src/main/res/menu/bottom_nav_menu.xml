@@ -19,6 +19,6 @@
     <item
         android:id="@+id/bottom_calendar"
         android:icon="@drawable/calendar"
-        android:title="Home"/>
+        android:title="Calender"/>
 
 </menu>

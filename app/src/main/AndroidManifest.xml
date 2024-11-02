@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <application
         android:enableOnBackInvokedCallback="true"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -51,11 +52,32 @@
             android:name="com.facebook.sdk.ClientToken"
             android:value="7fcd1deedce60a6c712a9f0955035971" />
 
+
+
+
+        <activity
+            android:name=".ContactDetails"
+            android:exported="false" />
+        <activity
+            android:name=".AddEditContact"
+            android:exported="true" />
+        <activity
+            android:name=".Register"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
     <queries>
         <package android:name="com.facebook.katana" />
     </queries>
+
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -68,3 +90,5 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>
+
+

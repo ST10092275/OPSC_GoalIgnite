@@ -13,6 +13,10 @@ import com.example.opsc7213_goalignite.adapter.ToDoAdapter
 import com.example.opsc7213_goalignite.model.ToDoModel
 import com.example.opsc7213_goalignite.utilis.DatabaseHandler
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 //THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
 //https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
@@ -67,6 +71,8 @@ class FragmentList : Fragment(), DialogCloseListener {
         val itemTouchHelper = ItemTouchHelper(RecyclerItemTouchHelper(requireContext(), tasksAdapter))
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView)
 
+       
+
         // Fetch tasks from the database and update the adapter
         taskList = db.getAllTasks().toMutableList()
         taskList.reverse()
@@ -76,6 +82,9 @@ class FragmentList : Fragment(), DialogCloseListener {
         fab.setOnClickListener {
             AddNewTask().show(parentFragmentManager, AddNewTask.TAG) // Use parentFragmentManager
         }
+
+        // Fetch tasks in a coroutine
+
 
         return view
     }

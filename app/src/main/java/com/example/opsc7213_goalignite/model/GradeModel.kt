@@ -11,6 +11,8 @@ class GradeModel {
     // The mark or score obtained in the module
     private var mark: String? = null
 
+    var isSynced: Boolean = false
+
 
 
     fun getId(): String? {

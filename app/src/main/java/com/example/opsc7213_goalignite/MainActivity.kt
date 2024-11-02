@@ -4,9 +4,6 @@ package com.example.opsc7213_goalignite
 
 import android.content.Context
 import android.content.Intent
-
-
-
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +19,11 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-     private lateinit var drawerLayout: DrawerLayout
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Apply theme before setting content view

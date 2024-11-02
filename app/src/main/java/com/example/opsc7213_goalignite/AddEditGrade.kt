@@ -9,7 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
+import com.example.opsc7213_goalignite.model.GradeModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 //This whole code was taken from YOUTUBE
@@ -34,7 +37,6 @@ class AddEditGrade : AppCompatActivity() {
 
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,6 +51,8 @@ class AddEditGrade : AppCompatActivity() {
 
         databaseHP = DatabaseHP(this)
 
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -61,8 +65,9 @@ class AddEditGrade : AppCompatActivity() {
         newGradesButton = findViewById(R.id.newGradesButton)
 
 
-        newGradesButton.setOnClickListener {
-            saveData()// Call the saveData() function when the button is clicked
+        newGradesButton.setOnClickListener { // Create a new instance of GradeModel
+            saveData() // N
+            // Call the saveData() function when the button is clicked
         }
 
     }
@@ -72,19 +77,30 @@ class AddEditGrade : AppCompatActivity() {
         module = moduleName.text.toString()
         mark = moduleMark.text.toString()
 
-        // Check if either the module name or mark is not empty
-        if (module.isNotEmpty() || mark.isNotEmpty()) {
-            // Insert the new grade into the database and get the inserted ID
-            val id = databaseHP.insertGrade(
-                module = module,
-                mark = mark
-            ) // Show a toast message confirming the insertion of the grade
-            Toast.makeText(applicationContext, "Inserted: $id", Toast.LENGTH_SHORT).show()
 
-        } else {// Show a toast message indicating that there's nothing to save if both fields are empty
-            Toast.makeText(applicationContext, "Nothing to save..", Toast.LENGTH_SHORT).show()
+        // Validate input
+        if (module.isNotEmpty() && mark.isNotEmpty()) {
+            // Use a coroutine for database operations
+            CoroutineScope(Dispatchers.IO).launch {
+                val id = databaseHP.insertGrade(module, mark) // Insert grade into the database
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "Inserted: $id", Toast.LENGTH_SHORT).show()
+                    clearInputFields() // Clear input fields after saving
+                }
+            }
+        } else {
+            Toast.makeText(applicationContext, "Please enter both module and mark.", Toast.LENGTH_SHORT).show()
         }
+
+        // After successful save
+
     }
+    // Function to clear input fields
+    private fun clearInputFields() {
+        moduleName.text.clear()
+        moduleMark.text.clear()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
