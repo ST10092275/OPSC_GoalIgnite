@@ -4,16 +4,20 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import androidx.annotation.Nullable
 import com.example.opsc7213_goalignite.model.ContactModel
+import com.example.opsc7213_goalignite.utilis.NetworkUtil
+import com.google.firebase.firestore.FirebaseFirestore
+
 //THIS WHOLE CODE WAS TAKEN FROM YOUTUBE
 //https://www.youtube.com/watch?v=7u5_NNrbQos&list=PLzEWSvaHx_Z2MeyGNQeUCEktmnJBp8136
 //Penguin Coders - TO-DO-LIST APPLICATION
 
 
 // Class for database helper
-class DbHelper(@Nullable context: Context?) : SQLiteOpenHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION) {
-
+class DbHelper( context: Context) : SQLiteOpenHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION) {
+    private val mContext: Context = context
     override fun onCreate(db: SQLiteDatabase) {
 
 
@@ -47,10 +51,38 @@ class DbHelper(@Nullable context: Context?) : SQLiteOpenHelper(context, Constant
         // Close the database
         db.close()
 
+        // Sync to cloud if online
+        if (NetworkUtil.isNetworkAvailable(mContext)) {
+            syncContactToCloud(ContactModel().apply {
+                setId(id.toString())
+                setName(name)
+                setPhone(phone)
+                setEmail(email)
+                setSubject(subject)
+            })
+        }
+
+
         // Return the inserted row ID
         return id
     }
+    fun syncContactToCloud(contact: ContactModel) {
+        val db = FirebaseFirestore.getInstance()
+        val contactData = hashMapOf(
+            "name" to contact.getName(),
+            "phone" to contact.getPhone(),
+            "email" to contact.getEmail(),
+            "subject" to contact.getSubject()
+        )
 
+        db.collection("contacts").document(contact.getId() ?: "").set(contactData)
+            .addOnSuccessListener {
+                Log.d("Firestore", "Contact successfully written!")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error writing contact", e)
+            }
+    }
 
 
     // Function to delete a contact by ID

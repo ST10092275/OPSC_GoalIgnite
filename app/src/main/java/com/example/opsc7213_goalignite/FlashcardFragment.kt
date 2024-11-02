@@ -27,7 +27,7 @@ import java.util.UUID
  * Use the [FlashcardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FlashcardFragment : Fragment() {
+class FlashcardFragment : androidx.fragment.app.Fragment() {
     //API calls code adapted from Medium
 //https://medium.com/@imkuldeepsinghrai/api-calls-with-retrofit-in-android-kotlin-a-comprehensive-guide-e049e19deba9#:~:text=In%20this%20article,%20we%20will%20explore%20the%20ins%20and%20outs
 //Kuldeep Singh Rai-API Calls with Retrofit in Android Kotlin: A Comprehensive Guide(2023)

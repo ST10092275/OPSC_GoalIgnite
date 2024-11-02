@@ -1,16 +1,20 @@
 package com.example.opsc7213_goalignite
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.opsc7213_goalignite.adapter.ContactAdapter
 import com.example.opsc7213_goalignite.model.ContactModel
+import com.example.opsc7213_goalignite.utilis.NetworkUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 //This whole code was taken from YOUTUBE
@@ -39,16 +43,35 @@ class FragmentContact : Fragment() {
     private lateinit var contactAdapter: ContactAdapter
 
     private lateinit var deleteCon: ImageView // Delete button
+    private lateinit var connectivityReceiver: ConnectivityReceiver
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        connectivityReceiver = ConnectivityReceiver()
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
+    // In the sync callback, replace with Toast messages
+    private fun syncContact(name: String, phone: String, email: String, subject: String) {
+        if (NetworkUtil.isNetworkAvailable(requireContext())) {
+            dbHelper.syncContactToCloud(ContactModel().apply {
+                setId(id.toString())
+                setName(name)
+                setPhone(phone)
+                setEmail(email)
+                setSubject(subject)
+             })
+        } else {
+            showToast("No internet connection. Contact not synced.")
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -103,6 +126,16 @@ class FragmentContact : Fragment() {
         // Initialize the adapter with the fetched data
         contactAdapter = ContactAdapter(requireContext(), contactList)
         contactRv.adapter = contactAdapter
+    }
+    override fun onStart() {
+        super.onStart()
+        val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireActivity().registerReceiver(connectivityReceiver, intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().unregisterReceiver(connectivityReceiver)
     }
     override fun onResume() {
         super.onResume()

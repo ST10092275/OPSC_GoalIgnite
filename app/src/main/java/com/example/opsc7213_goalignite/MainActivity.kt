@@ -8,7 +8,6 @@ import android.content.Intent
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,15 +17,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
-import com.facebook.GraphRequest
-import com.facebook.GraphResponse
-import org.json.JSONObject
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    private lateinit var drawerLayout: DrawerLayout
-
-
+     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Apply theme before setting content view
@@ -40,6 +36,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        FirebaseApp.initializeApp(this)
+
+        // In your MainActivity or other hosting Activity
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, FragmentTimer())
+            .commit()
 
 
         // Set up the toolbar
