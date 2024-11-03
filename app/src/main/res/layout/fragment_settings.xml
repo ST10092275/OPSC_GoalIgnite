@@ -8,19 +8,21 @@
     android:padding="16dp">
 
     <LinearLayout
-<<<<<<< HEAD
+
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:orientation="horizontal">
-=======
+
+    <TextView
         android:id="@+id/profilelayout"
         android:layout_width="380dp"
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:clickable="true"
         android:focusable="true"
-        android:padding="16dp">
->>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
+        android:padding="16dp"
+        android:text="@string/profile_management"/>
+
 
         <ImageView
             android:id="@+id/person"
@@ -28,37 +30,26 @@
             android:layout_height="14dp"
             android:layout_marginStart="24dp"
             android:layout_weight="1"
-<<<<<<< HEAD
             app:srcCompat="@drawable/baseline_person" />
-=======
-            app:srcCompat="@drawable/baseline_person"
-            android:layout_marginStart="22dp"/>
->>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
+
+
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-<<<<<<< HEAD
-            android:text="@string/profile_management" />
-
-=======
-            android:text="Profile Management"
+            android:text="@string/profile_management"
             android:layout_marginStart="15dp"/>
->>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
+
         <ImageView
             android:id="@+id/profilearrow"
             android:layout_width="11dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-<<<<<<< HEAD
-            app:srcCompat="@drawable/arrow" />
-=======
             app:srcCompat="@drawable/arrow"
             android:layout_marginStart="45dp"/>
 
->>>>>>> 350779019de26e00277eba6fe7587694f33c21e9
     </LinearLayout>
     <LinearLayout
         android:id="@+id/profileFieldsLayout"

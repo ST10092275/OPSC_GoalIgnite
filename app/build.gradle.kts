@@ -1,15 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
-    id("kotlin-kapt")
-
     alias(libs.plugins.google.gms.google.services)
-
     id("kotlin-kapt")
+    base
 
 }
-
+base {
+    archivesName.set("gradle")
+    distsDirectory.set(layout.buildDirectory.dir("custom-dist"))
+    libsDirectory.set(layout.buildDirectory.dir("custom-libs"))
+}
 android {
     namespace = "com.example.opsc7213_goalignite"
     compileSdk = 35
@@ -23,8 +24,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     buildTypes {
@@ -36,14 +39,21 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
-    packagingOptions {
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8) // or any compatible version
+        }
+    }
+    packaging {
         resources {
             excludes += "/META-INF/DEPENDENCIES"
             excludes += "/META-INF/LICENSE"
@@ -55,43 +65,9 @@ android {
         }
     }
 }
-    dependencies {
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.appcompat)
-        implementation(libs.material)
-        implementation(libs.androidx.activity)
-        implementation(libs.androidx.constraintlayout)
-        implementation(libs.circleimageview)
-        implementation(libs.sdp)
-        implementation(libs.firebase.database)
-        implementation(libs.firebase.auth)
-        implementation(libs.firebase.firestore.ktx)
-        implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-        implementation("com.google.android.gms:play-services-auth:21.2.0")
-        implementation(libs.androidx.recyclerview)
-        implementation(libs.firebase.firestore)
-        implementation(libs.places)
-        implementation(libs.firebase.storage.ktx)
 
-        testImplementation(libs.junit)
-        androidTestImplementation(libs.androidx.junit)
-        androidTestImplementation(libs.androidx.espresso.core)
-        implementation("androidx.recyclerview:recyclerview:1.3.2") // Keep this version if it's needed
-        implementation("androidx.biometric:biometric-ktx:1.4.0-alpha02") // Consider stable versions
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
-        implementation("com.facebook.android:facebook-login:[latest-version]") // Replace with a stable version
-        implementation("com.facebook.android:facebook-android-sdk:16.0.1")
-
-        // Retrofit and OkHttp
-        implementation("com.squareup.retrofit2:retrofit:2.9.0")
-        implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-        implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
-
-        // Glide
-        implementation("com.github.bumptech.glide:glide:4.14.2")
-        annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
-
+dependencies {
+    // AndroidX libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -99,65 +75,57 @@ android {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.circleimageview)
     implementation(libs.sdp)
-
-    implementation(libs.androidx.work.runtime.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.google.firebase:firebase-auth:22.1.1")
-    implementation("com.google.firebase:firebase-firestore:24.9.0")
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
-
-    implementation(libs.picasso)
     implementation(libs.recyclerview)
-    implementation(libs.glide)
-    implementation(libs.media)
-}
 
-    implementation(libs.firebase.database)
+    // Firebase libraries
+    implementation(libs.firebase.bom)
     implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore.ktx)
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
+
+    // Google Play Services
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.drive)
+
+    // Facebook SDK (Replace with the actual version)
+    implementation(libs.facebook.login) // Example version
+    implementation(libs.facebook.android.sdk) // Example version
+
+    // Retrofit and OkHttp
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.14.2")
+    kapt("com.github.bumptech.glide:compiler:4.14.2")
+
+    // Picasso
+    implementation(libs.picasso)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation (libs.kotlin.stdlib.jdk8)
+
+    // Google API Client
+    implementation(libs.google.api.client)
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.api.client.gson)
+    implementation(libs.google.api.services.drive)
+    implementation(libs.google.http.client.android)
+    implementation(libs.google.http.client.jackson2)
+
+    // Guava
+    implementation(libs.guava)
+
+    // Testing libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation ("com.google.android.material:material:1.9.0")
-    implementation ("com.google.android.gms:play-services-auth:20.2.0")
-    implementation ("com.facebook.android:facebook-login:[latest-version]")
-    implementation ("com.facebook.android:facebook-android-sdk:16.0.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
-    implementation ("com.github.bumptech.glide:glide:4.14.2")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
-    implementation("com.google.firebase:firebase-auth")
 
 
-        // Firebase Auth
-        implementation("com.google.firebase:firebase-auth") // This may already be covered by BOM
-
-        // Google Drive and API Client
-        implementation("com.google.android.gms:play-services-drive:17.0.0")
-        implementation ("com.google.api-client:google-api-client:1.32.2")
-        implementation("com.google.api-client:google-api-client-android:1.32.2")
-        implementation("com.google.api-client:google-api-client-gson:1.32.2")
-        implementation("com.google.apis:google-api-services-drive:v3-rev136-1.25.0")
-        implementation ("com.google.http-client:google-http-client-android:1.40.1")
-        implementation("com.google.http-client:google-http-client-jackson2:1.41.5")
-
-        // Guava
-        implementation("com.google.guava:guava:32.1.2-jre")
-        implementation("com.google.android.gms:play-services-fido:21.1.0")
-
-        // Coroutine dependencies
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
-
-
-        implementation ("com.squareup.picasso:picasso:2.5.2")
-        implementation ("androidx.media:media:1.4.0")
-    }
+    implementation ("com.squareup.dagger:dagger:1.2.5")
+    kapt ("com.squareup.dagger:dagger-compiler:1.2.5")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+}

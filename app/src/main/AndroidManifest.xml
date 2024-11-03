@@ -53,25 +53,6 @@
             android:value="7fcd1deedce60a6c712a9f0955035971" />
 
 
-
-
-        <activity
-            android:name=".ContactDetails"
-            android:exported="false" />
-        <activity
-            android:name=".AddEditContact"
-            android:exported="true" />
-        <activity
-            android:name=".Register"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
     </application>
 
     <queries>
